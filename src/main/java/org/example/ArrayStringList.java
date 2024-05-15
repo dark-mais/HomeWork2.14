@@ -138,7 +138,7 @@ public class ArrayStringList implements StringList {
         return Arrays.copyOf(elements, size);
     }
 
-    private void ensureCapacity() {
+    public void ensureCapacity() {
         if (size == elements.length) {
             elements = Arrays.copyOf(elements, elements.length * 2);
         }
