@@ -9,7 +9,7 @@ public class IntegerList implements StringList {
 
     private Integer[] elements;
     private int size;
-    private Sortable sortable;
+    Sortable sortable;
 
     public IntegerList(Sortable sortable) {
         this.sortable = sortable;
@@ -139,17 +139,22 @@ public class IntegerList implements StringList {
 
     @Override
     public String[] toArray() {
-        String[] array = new String[size];
+        String[] result = new String[size];
         for (int i = 0; i < size; i++) {
-            array[i] = elements[i].toString();
+            result[i] = elements[i].toString();
         }
-        return array;
+        return result;
     }
 
     private void ensureCapacity() {
         if (size == elements.length) {
-            elements = Arrays.copyOf(elements, elements.length * 2);
+            grow();
         }
+    }
+
+    private void grow() {
+        int newSize = elements.length + (elements.length / 2);
+        elements = Arrays.copyOf(elements, newSize);
     }
 
     private void sort() {

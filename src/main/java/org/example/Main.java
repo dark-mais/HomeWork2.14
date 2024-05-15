@@ -1,38 +1,28 @@
 package org.example;
 
+import org.example.sort.QuickSort;
+
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        StringList list = new ArrayStringList(10);
+        // Тестирование с быстрой сортировкой
+        IntegerList quickSortList = new IntegerList(new QuickSort());
 
-        list.add("Hello");
-        list.add("World");
-        list.add(1, "Java");
-        System.out.println(Arrays.toString(list.toArray())); // [Hello, Java, World]
+        // Тестирование сортировок
+        Integer[] array = new Integer[100000];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = (int) (Math.random() * 100000);
+        }
+        Integer[] arrayCopy1 = Arrays.copyOf(array, array.length);
+        Integer[] arrayCopy2 = Arrays.copyOf(array, array.length);
 
-        list.set(1, "Python");
-        System.out.println(Arrays.toString(list.toArray())); // [Hello, Python, World]
+        long start = System.currentTimeMillis();
+        Arrays.sort(arrayCopy1);
+        System.out.println("Arrays.sort: " + (System.currentTimeMillis() - start) + "ms");
 
-        list.remove("Python");
-        System.out.println(Arrays.toString(list.toArray())); // [Hello, World]
-
-        System.out.println(list.contains("Hello")); // true
-        System.out.println(list.indexOf("World")); // 1
-        System.out.println(list.lastIndexOf("World")); // 1
-
-        System.out.println(list.get(0)); // Hello
-
-        StringList otherList = new ArrayStringList(10);
-        otherList.add("Hello");
-        otherList.add("World");
-
-        System.out.println(list.equals(otherList)); // true
-
-        System.out.println(list.size()); // 2
-        System.out.println(list.isEmpty()); // false
-
-        list.clear();
-        System.out.println(list.size()); // 0
+        start = System.currentTimeMillis();
+        quickSortList.sortable.sort(arrayCopy2, arrayCopy2.length);
+        System.out.println("QuickSort: " + (System.currentTimeMillis() - start) + "ms");
     }
 }
